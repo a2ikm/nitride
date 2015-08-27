@@ -1,5 +1,6 @@
 require "nitride/version"
+require "nitride/filter"
 
 module Nitride
-  # Your code goes here...
+  include Querying
 end

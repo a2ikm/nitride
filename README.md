@@ -1,8 +1,6 @@
 # Nitride
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/nitride`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Nitride introduces filter-chain to enumerable objects.
 
 ## Installation
 
@@ -22,7 +20,33 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    class MemberCollection
+      include Nitride
+
+      def initialize
+        @members = []
+      end
+
+      def add(member)
+        @members |= member
+      end
+
+      # NOTE: Must implement `each` method.
+      def each(&block)
+        if block_given?
+          @members.each(&block)
+        else
+          @members.each
+        end
+      end
+    end
+
+    collection = MemberCollection.new
+
+    # add members ...
+
+    collection.select(&:male?).reject(&:smoker?).to_a
+
 
 ## Development
 
@@ -32,5 +56,5 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/nitride.
+Bug reports and pull requests are welcome on GitHub at https://github.com/a2ikm/nitride.
 
